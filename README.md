@@ -1,9 +1,45 @@
-# Independent declarative interaction fixture
+# @nuxtjp/interaction-fixture
 
-0.10.0. Test-only product: a small Rust domain handler, Crowsi transport, NuxtJP
-declarations, Nuxt SSR and Playwright. Runtime code depends on no Hatter,
-sem-lang, HAT or profile package. A field called name is fixture data, not a new
-canonical human meaning. Never deploy the fixture identity/configuration stub.
+Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリで確認できます。
+
+## 利用前の確認
+
+実装済みの範囲、必要な依存関係、検証コマンドを以下の英語説明に併記しています。操作・配備・公開は、それぞれの権限と設定を確認してから実施してください。
+
+現在の依存設定にはGit対象外のローカル成果物が含まれます。配布経路が整うまでは、cloneだけで依存を導入できません。
+
+## 使い方
+
+リポジトリ内のサンプル・スキーマ・実装を確認し、用途に必要な入力を明示して利用します。下記のGetting startedに、現行設定に対応する検証コマンドを示しています。
+
+検証結果は実行した範囲だけを示します。未実装の機能、未設定の接続、配備環境の確認を合格扱いにしないでください。
+
+## English
+
+Test a complete declared interaction across a Rust handler, transport and Nuxt browser view.
+
+## What you can do
+
+- Observe exact revisions and retry receipts.
+- Run browser scenarios against the fixture product.
+
+## Current scope
+
+This is a test-only fixture. Its identity and configuration stubs must not be deployed as production authentication.
+
+## Getting started
+
+The manifest currently requires locally supplied package archives: `@nuxtjp/declarative-ui`, `@crowsi/interaction-transport`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
+
+Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm test
+pnpm build
+```
+
+## Examples and interface details
 
 ## Ownership and execution
 
@@ -34,31 +70,10 @@ create isolated temporary state, launch production Node output and a Rust worker
 then close processes and remove test state. No user data, real credentials,
 Windows automation or Hatter release switch is performed.
 
-## Scenarios currently exercised
+## Documentation and source
 
-- Real SSR initial values, exact declaration/resource attributes, no initial
-  mutation, no duplicate initial read after hydration.
-- Input -> typed invoke -> exact persisted value -> live display; repeat save.
-- Add field, collection, action and page to the running build through declaration
-  data; an installed Nuxt module adds a renderer capability.
-- Preserve unsaved edits during declaration updates and reject a stale contract.
-- Multiple users and roles see distinct records. Invalid required input does not
-  mutate either user's records. Boolean false remains valid.
-- 390px viewport does not overflow; page changes and browser console are checked.
+[Interface reference](docs/interface-reference.md)
 
-- Operation input schemas differ from resource schemas; `replacement` updates
-  `name` without submitting unrelated resource fields, and false stays false.
-- Six typed read failures preserve status/reason/field issues through SSR and
-  live UI. The HTTP page stays 200 and stale private values are no longer rendered.
-- Grant revocation rejects replay of a previously successful request before
-  exposing its saved receipt, without changing its resource revision.
-- Runtime executable declarations produce typed unavailable; no script executes.
-- Real browser hidden/visible state stops/resumes subscription traffic. The
-  underlying Rust server is interrupted and a new request reconnects without
-  replaying uncertain writes or losing persisted values.
+[Usage guide](docs/getting-started.md)
 
-These two combined browser scenarios pass with warnings/errors rejected. This is
-not Hatter release acceptance. Shared Rust/JavaScript schema-algebra conformance
-and the separate Hatter role/inference/memory/lifecycle migration remain distinct
-work. See docs/migration.md and sem-lang/docs/feedback-integration.md; product
-gates are not satisfied by these fixture tests.
+[Detailed documentation](docs) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
