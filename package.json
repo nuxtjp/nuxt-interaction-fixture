@@ -1,0 +1,36 @@
+{
+  "name": "@nuxtjp/interaction-fixture",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "build": "nuxt build"
+  },
+  "dependencies": {
+    "nuxt": "4.5.0",
+    "vue": "3.5.39",
+    "@nuxt/ui": "4.10.0",
+    "@iconify-json/lucide": "1.2.121",
+    "tailwindcss": "4.1.18",
+    "@nuxt/kit": "4.5.0",
+    "@nuxtjp/declarative-ui": "file:../../../../../../../.artifacts/npm/357e872baa36276160ba32103413a60fb675f9891346122e6446819e46a098f7/nuxtjp-declarative-ui-0.10.0.tgz",
+    "@crowsi/interaction-transport": "file:../../../../../../../.artifacts/npm/ada76bd993fabe4404c3db944e5b6eab4f0344beea3fc02199e04daf389aee90/crowsi-interaction-transport-0.10.0.tgz"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "typescript": "5.9.3",
+    "vue-tsc": "3.2.8"
+  },
+  "pnpm": {
+    "overrides": {
+      "archiver-utils@5.0.2>glob": "13.0.6",
+      "@crowsi/interaction-transport": "file:../../../../../../../.artifacts/npm/ada76bd993fabe4404c3db944e5b6eab4f0344beea3fc02199e04daf389aee90/crowsi-interaction-transport-0.10.0.tgz",
+      "@zixcel/interaction": "file:../../../../../../../.artifacts/npm/44d7f61ece92decccb330e9c346c6eb8c5851c99581044423680853c4b37a972/zixcel-interaction-0.10.0.tgz"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  },
+  "license": "Apache-2.0"
+}
