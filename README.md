@@ -6,7 +6,7 @@ Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリ
 
 実装済みの範囲、必要な依存関係、検証コマンドを以下の英語説明に併記しています。操作・配備・公開は、それぞれの権限と設定を確認してから実施してください。
 
-現在の依存設定にはGit対象外のローカル成果物が含まれます。配布経路が整うまでは、cloneだけで依存を導入できません。
+通信と操作契約の依存ライブラリは公式npmレジストリから取得します。UI自体の公開状況と、検証用fixtureのソース配置は以下に記載しています。
 
 ## 使い方
 
@@ -29,35 +29,39 @@ This is a test-only fixture. Its identity and configuration stubs must not be de
 
 ## Getting started
 
-The manifest currently requires locally supplied package archives: `@nuxtjp/declarative-ui`, `@crowsi/interaction-transport`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
-
-Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
+Fetch the transport and interaction contracts from npm. The unpublished UI module
+is a deliberate development dependency, `file:../nuxt-declarative-ui`. Clone its
+public source beside this fixture and build it first. This does not constitute
+official-registry verification of the UI package. Deleted artifact trees are unused.
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm test
-pnpm build
+git clone https://github.com/nuxtjp/nuxt-declarative-ui.git ../nuxt-declarative-ui
+pnpm --dir ../nuxt-declarative-ui install --frozen-lockfile --ignore-scripts
+pnpm --dir ../nuxt-declarative-ui build
+pnpm install --frozen-lockfile --ignore-scripts
+cargo build --locked --manifest-path handler/Cargo.toml
+pnpm test:dependency-security
+node tools/check.mjs build
+node tools/check.mjs browser
 ```
+
+Set `INTERACTION_FIXTURE_HANDLER` to an absolute executable path for an external
+Cargo target directory. CI pins the UI revision. Production applications supply
+real authentication and their own authorized handlers.
 
 ## Examples and interface details
 
 ## Ownership and execution
 
 The Rust handler owns fixture records, revision checks and persisted retry
-receipts. It consumes zixcel-interaction from a private Cargo registry archive.
+receipts. It consumes `zixcel-interaction@0.10.0` from crates.io.
 The Nuxt host only declares a route, resolves a fixture scope and wires the
 Crowsi Web Request adapter to the installed handler executable. NuxtJP owns
 rendering, SSR snapshots, form drafts and subscription lifecycle. No embedded V8.
 
-All private NPM dependencies are SHA-256-addressed archives, resolved through
-package-manager overrides and locked integrity values. No sibling source imports.
+Registry dependencies and the development-only UI source link are pinned in the
+lockfile. Fixture authentication stubs are never production authorization.
 
-1. Build handler/Cargo.toml with the verified zixcel-private Cargo configuration,
-   using --offline and --locked. Explicitly regenerate its lock after a deliberate
-   0.10.0 archive replacement; do not add a source-path fallback.
-2. pnpm install --offline --frozen-lockfile --ignore-scripts
-3. node tools/check.mjs build
-4. node tools/check.mjs browser
 
 The browser checker requires Linux `xvfb-run` / `Xvfb` and the installed Playwright
 Chromium binary. It owns a private virtual display and temporary browser profile.

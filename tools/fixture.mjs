@@ -39,7 +39,7 @@ export async function startFixture() {
   let output = ''
   const child = spawn(process.execPath,[path.join(root,'.output/server/index.mjs')],{cwd:root,detached:true,
     env:{...process.env,HOST:'127.0.0.1',PORT:String(port),INTERACTION_FIXTURE_ORIGIN:url,
-      INTERACTION_FIXTURE_STATE:stateFile,INTERACTION_FIXTURE_HANDLER:path.join(root,'handler/target/debug/interaction-fixture-handler')},
+      INTERACTION_FIXTURE_STATE:stateFile,INTERACTION_FIXTURE_HANDLER:process.env.INTERACTION_FIXTURE_HANDLER || path.join(root,'handler/target/debug/interaction-fixture-handler')},
     stdio:['ignore','pipe','pipe']})
   const capture = bytes => {output=(output+bytes.toString()).slice(-32768)}
   child.stdout.on('data',capture); child.stderr.on('data',capture)
