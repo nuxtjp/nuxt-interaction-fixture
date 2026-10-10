@@ -1,0 +1,54 @@
+name: Product CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: product-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      NUXT_TELEMETRY_DISABLED: '1'
+      CARGO_BUILD_JOBS: '2'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: fixture
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: nuxtjp/nuxt-declarative-ui
+          ref: f967a7dafc37f65fb808575f1b6912c8f7fa9739
+          path: nuxt-declarative-ui
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Install declared toolchains
+        run: |
+          npm install --global pnpm@10.29.3 --ignore-scripts
+          rustup toolchain install 1.97 --profile minimal --component clippy
+          echo "CARGO_TARGET_DIR=$RUNNER_TEMP/cargo-target" >> "$GITHUB_ENV"
+          echo "INTERACTION_FIXTURE_HANDLER=$RUNNER_TEMP/cargo-target/debug/interaction-fixture-handler" >> "$GITHUB_ENV"
+      - name: Build the pinned development-only UI module
+        working-directory: nuxt-declarative-ui
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm typecheck
+          pnpm test
+          pnpm build
+      - name: Verify official Rust contract and isolated browser composition
+        working-directory: fixture
+        run: |
+          cargo +1.97 clippy --locked --manifest-path handler/Cargo.toml --all-targets -- -D warnings
+          cargo +1.97 build --locked --manifest-path handler/Cargo.toml
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm test:dependency-security
+          pnpm exec playwright install --with-deps chromium
+          node tools/check.mjs build
+          node tools/check.mjs browser

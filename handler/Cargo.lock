@@ -103,8 +103,8 @@ checksum = "d245f478577f809a851594d02313b640fb437e0bb33866753cff937863096954"
 [[package]]
 name = "zixcel-interaction"
 version = "0.10.0"
-source = "sparse+https://zixcel-private.invalid/cargo/index/"
-checksum = "4a85eb045e501cb7a9b0d1d0f460a1cb6f53353086568f58b4e82c6e7ed2fdec"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c9c8438609dbf0dd8d577da4d9c92f18ceebb0cc1c5d6284726ffc4600cc4da"
 dependencies = [
  "serde",
  "serde_json",
