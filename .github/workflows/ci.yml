@@ -20,12 +20,6 @@ jobs:
         with:
           path: fixture
           persist-credentials: false
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          repository: nuxtjp/nuxt-declarative-ui
-          ref: 2b49d3e14a10196d4826c0ce38116b265b9ae9b8
-          path: nuxt-declarative-ui
-          persist-credentials: false
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
@@ -35,13 +29,6 @@ jobs:
           rustup toolchain install 1.97 --profile minimal --component clippy
           echo "CARGO_TARGET_DIR=$RUNNER_TEMP/cargo-target" >> "$GITHUB_ENV"
           echo "INTERACTION_FIXTURE_HANDLER=$RUNNER_TEMP/cargo-target/debug/interaction-fixture-handler" >> "$GITHUB_ENV"
-      - name: Build the pinned development-only UI module
-        working-directory: nuxt-declarative-ui
-        run: |
-          pnpm install --frozen-lockfile --ignore-scripts
-          pnpm typecheck
-          pnpm test
-          pnpm build
       - name: Verify official Rust contract and isolated browser composition
         working-directory: fixture
         run: |
