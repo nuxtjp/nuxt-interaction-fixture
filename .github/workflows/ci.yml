@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: nuxtjp/nuxt-declarative-ui
-          ref: f967a7dafc37f65fb808575f1b6912c8f7fa9739
+          ref: 2b49d3e14a10196d4826c0ce38116b265b9ae9b8
           path: nuxt-declarative-ui
           persist-credentials: false
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
