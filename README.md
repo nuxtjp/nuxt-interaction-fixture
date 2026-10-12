@@ -1,20 +1,6 @@
 # @nuxtjp/interaction-fixture
 
-Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリで確認できます。
-
-## 利用前の確認
-
-実装済みの範囲、必要な依存関係、検証コマンドを以下の英語説明に併記しています。操作・配備・公開は、それぞれの権限と設定を確認してから実施してください。
-
-通信と操作契約の依存ライブラリは公式npmレジストリから取得します。UI自体の公開状況と、検証用fixtureのソース配置は以下に記載しています。
-
-## 使い方
-
-リポジトリ内のサンプル・スキーマ・実装を確認し、用途に必要な入力を明示して利用します。下記のGetting startedに、現行設定に対応する検証コマンドを示しています。
-
-検証結果は実行した範囲だけを示します。未実装の機能、未設定の接続、配備環境の確認を合格扱いにしないでください。
-
-## English
+[日本語](README.ja.md)
 
 Test a complete declared interaction across a Rust handler, transport and Nuxt browser view.
 
@@ -46,7 +32,7 @@ node tools/check.mjs browser
 ```
 
 Set `INTERACTION_FIXTURE_HANDLER` to an absolute executable path for an external
-Cargo target directory. CI pins the UI revision. Production applications supply
+Cargo target directory. CI pins reviewed public UI source `2b49d3e14a10196d4826c0ce38116b265b9ae9b8`, including the independently verified TGZ/type/SSR candidate and primitive-input correction. Initial npm registration/Trusted Publisher and staged owner approval are D11; only after official publication will this fixture switch to its registry dependency. Production applications supply
 real authentication and their own authorized handlers.
 
 ## Examples and interface details
