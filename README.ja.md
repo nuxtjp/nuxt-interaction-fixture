@@ -15,4 +15,4 @@ Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリ
 検証結果は実行した範囲だけを示します。未実装の機能、未設定の接続、配備環境の確認を合格扱いにしないでください。
 
 
-UI sourceは公開repoの確認済みSHAへ固定します。正式NPM配布までの開発例外です。[UIの配布候補と承認手順](https://github.com/nuxtjp/nuxt-declarative-ui/blob/main/docs/distribution.ja.md)を参照し、D11完了後にregistryへ切替えます。兄弟sourceはCIに明示して取得し、隠れた配布物参照とは扱いません。
+UIは公式npmの @nuxtjp/declarative-ui 0.10.0へ切替済みです。[配布経路](https://github.com/nuxtjp/declarative-ui/blob/main/docs/distribution.ja.md)を参照できます。sourceの兄弟checkoutをCIやインストールに要求しません。

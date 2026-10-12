@@ -15,7 +15,7 @@
     "@iconify-json/lucide": "1.2.121",
     "tailwindcss": "4.1.18",
     "@nuxt/kit": "4.6.0",
-    "@nuxtjp/declarative-ui": "file:../nuxt-declarative-ui",
+    "@nuxtjp/declarative-ui": "0.10.0",
     "@crowsi/interaction-transport": "0.10.0"
   },
   "devDependencies": {

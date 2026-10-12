@@ -15,15 +15,10 @@ This is a test-only fixture. Its identity and configuration stubs must not be de
 
 ## Getting started
 
-Fetch the transport and interaction contracts from npm. The unpublished UI module
-is a deliberate development dependency, `file:../nuxt-declarative-ui`. Clone its
-public source beside this fixture and build it first. This does not constitute
-official-registry verification of the UI package. Deleted artifact trees are unused.
+Install the UI, transport and interaction contracts from the public npm registry.
+The UI uses the official @nuxtjp/declarative-ui 0.10.0 OIDC release; no sibling checkout is required.
 
 ```sh
-git clone https://github.com/nuxtjp/nuxt-declarative-ui.git ../nuxt-declarative-ui
-pnpm --dir ../nuxt-declarative-ui install --frozen-lockfile --ignore-scripts
-pnpm --dir ../nuxt-declarative-ui build
 pnpm install --frozen-lockfile --ignore-scripts
 cargo build --locked --manifest-path handler/Cargo.toml
 pnpm test:dependency-security
@@ -32,7 +27,7 @@ node tools/check.mjs browser
 ```
 
 Set `INTERACTION_FIXTURE_HANDLER` to an absolute executable path for an external
-Cargo target directory. CI pins reviewed public UI source `2b49d3e14a10196d4826c0ce38116b265b9ae9b8`, including the independently verified TGZ/type/SSR candidate and primitive-input correction. Initial npm registration/Trusted Publisher and staged owner approval are D11; only after official publication will this fixture switch to its registry dependency. Production applications supply
+Cargo target directory. CI installs the committed official registry dependency graph. Production applications supply
 real authentication and their own authorized handlers.
 
 ## Examples and interface details
@@ -45,7 +40,7 @@ The Nuxt host only declares a route, resolves a fixture scope and wires the
 Crowsi Web Request adapter to the installed handler executable. NuxtJP owns
 rendering, SSR snapshots, form drafts and subscription lifecycle. No embedded V8.
 
-Registry dependencies and the development-only UI source link are pinned in the
+Official registry dependency versions and integrity are pinned in the
 lockfile. Fixture authentication stubs are never production authorization.
 
 
