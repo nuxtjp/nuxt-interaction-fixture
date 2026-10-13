@@ -1,0 +1,120 @@
+{
+  "repository": "nuxtjp/nuxt-interaction-fixture",
+  "purpose": "Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリで確認できます。 / Test a complete declared interaction across a Rust handler, transport and Nuxt browser view.",
+  "responsibility_boundary": "Own the documented Nuxt/browser interface and its public contracts. Account authority, external effects, product state and production hosting remain explicit consumer responsibilities.",
+  "packages": [
+    {
+      "manifest": "handler/Cargo.toml",
+      "package": "interaction-fixture-handler",
+      "ecosystem": "rust",
+      "description": null,
+      "interfaces": {
+        "lib": null,
+        "features": {},
+        "bins": [],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    },
+    {
+      "manifest": "package.json",
+      "package": "@nuxtjp/interaction-fixture",
+      "ecosystem": "npm",
+      "description": null,
+      "interfaces": {
+        "exports": {},
+        "bin": {},
+        "main": null,
+        "types": null
+      },
+      "declared_commands": {
+        "test": "playwright test",
+        "build": "nuxt build",
+        "test:dependency-security": "node --test scripts/dependency-security.check.cjs"
+      }
+    }
+  ],
+  "schema_definitions": [],
+  "test_sources": [
+    "handler/src/main.rs",
+    "test/acceptance.spec.mjs",
+    "tools/check.mjs",
+    "tools/native-browser.mjs"
+  ],
+  "example_sources": [],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "job": "test",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": "Install declared toolchains",
+              "run": "npm install --global pnpm@10.29.3 --ignore-scripts\nrustup toolchain install 1.97 --profile minimal --component clippy\necho \"CARGO_TARGET_DIR=$RUNNER_TEMP/cargo-target\" >> \"$GITHUB_ENV\"\necho \"INTERACTION_FIXTURE_HANDLER=$RUNNER_TEMP/cargo-target/debug/interaction-fixture-handler\" >> \"$GITHUB_ENV\"\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify official Rust contract and isolated browser composition",
+              "run": "cargo +1.97 clippy --locked --manifest-path handler/Cargo.toml --all-targets -- -D warnings\ncargo +1.97 build --locked --manifest-path handler/Cargo.toml\npnpm install --frozen-lockfile --ignore-scripts\npnpm test:dependency-security\npnpm exec playwright install --with-deps chromium\nnode tools/check.mjs build\nnode tools/check.mjs browser\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
