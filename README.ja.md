@@ -16,3 +16,5 @@ Rustの処理、通信、Nuxtの画面を通した操作を、検証用アプリ
 
 
 UIは公式npmの @nuxtjp/declarative-ui 0.10.0へ切替済みです。[配布経路](https://github.com/nuxtjp/declarative-ui/blob/main/docs/distribution.ja.md)を参照できます。sourceの兄弟checkoutをCIやインストールに要求しません。
+
+Dependency updates: [repository policy](docs/dependency-updates.md).
