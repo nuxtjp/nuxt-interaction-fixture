@@ -35,7 +35,7 @@ real authentication and their own authorized handlers.
 ## Ownership and execution
 
 The Rust handler owns fixture records, revision checks and persisted retry
-receipts. It consumes `zixcel-interaction@0.10.0` from crates.io.
+receipts. It consumes `zixcel-interaction` from crates.io.
 The Nuxt host only declares a route, resolves a fixture scope and wires the
 Crowsi Web Request adapter to the installed handler executable. NuxtJP owns
 rendering, SSR snapshots, form drafts and subscription lifecycle. No embedded V8.
@@ -64,3 +64,5 @@ Windows automation or Hatter release switch is performed.
 [Detailed documentation](docs) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
 
 [OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
+
+Dependency updates: [repository policy](docs/dependency-updates.md).
