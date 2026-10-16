@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vue-tsc": "3.2.8"
   },
   "pnpm": {
