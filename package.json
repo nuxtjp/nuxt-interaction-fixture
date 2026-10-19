@@ -9,24 +9,24 @@
     "test:dependency-security": "node --test scripts/dependency-security.check.cjs"
   },
   "dependencies": {
-    "nuxt": "4.6.0",
-    "vue": "3.5.43",
-    "@nuxt/ui": "4.11.3",
-    "@iconify-json/lucide": "1.2.121",
-    "tailwindcss": "4.1.18",
-    "@nuxt/kit": "4.6.0",
+    "nuxt": "4.6.1",
+    "vue": "3.5.44",
+    "@nuxt/ui": "4.12.0",
+    "@iconify-json/lucide": "1.2.145",
+    "tailwindcss": "4.3.3",
+    "@nuxt/kit": "4.6.1",
     "@nuxtjp/declarative-ui": "0.10.0",
-    "@crowsi/interaction-transport": "0.10.0"
+    "@crowsi/interaction-transport": "0.10.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
+    "@playwright/test": "1.64.1",
     "typescript": "7.0.2",
-    "vue-tsc": "3.2.8"
+    "vue-tsc": "3.3.13"
   },
   "pnpm": {
     "overrides": {
       "archiver-utils@5.0.2>glob": "13.0.6",
-      "@crowsi/interaction-transport": "0.10.0",
+      "@crowsi/interaction-transport": "0.10.1",
       "@zixcel/interaction": "0.10.0",
       "@nuxt/devtools>simple-git": "4.0.2",
       "esbuild@0.27.7": "0.28.2"
