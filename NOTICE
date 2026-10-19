@@ -2,3 +2,7 @@
 nuxt-interaction-fixture
 Copyright 2026 HAT Inc.
 See LICENSE for the selected terms. Prior grants and third-party licenses retain their respective terms.
+
+Original copyright and license text for source-controlled dependency patches
+is retained in third-party/LICENSES/; see third-party/README.md and
+third-party/patch-attribution.json for original source and change provenance.
