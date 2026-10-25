@@ -12,7 +12,7 @@
     "nuxt": "4.6.2",
     "vue": "3.5.44",
     "@nuxt/ui": "4.12.0",
-    "@iconify-json/lucide": "1.2.146",
+    "@iconify-json/lucide": "1.2.147",
     "tailwindcss": "4.3.3",
     "@nuxt/kit": "4.6.2",
     "@nuxtjp/declarative-ui": "0.10.0",
